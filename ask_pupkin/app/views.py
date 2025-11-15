@@ -3,7 +3,6 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import Http404
 
 def paginate(objects_list, request, per_page=10):
-    """Функция пагинации"""
     paginator = Paginator(objects_list, per_page)
     page = request.GET.get('page', 1)
     
@@ -17,7 +16,6 @@ def paginate(objects_list, request, per_page=10):
     return page_obj
 
 def get_questions():
-    """Заглушка данных - список новых вопросов"""
     questions = []
     for i in range(1, 30):
         questions.append({
@@ -33,7 +31,6 @@ def get_questions():
     return questions
 
 def get_hot_questions():
-    """Вопросы для страницы 'Лучшие' - с высоким рейтингом"""
     hot_questions_data = [
         {
             'id': 101,
@@ -55,12 +52,10 @@ def get_hot_questions():
             'author': {'username': 'thrash_lover', 'avatar': 'ТЛ'},
             'created_at': '5 дней назад'
         },
-        # ... добавить больше уникальных вопросов
     ]
     return hot_questions_data
 
 def get_tag_questions(tag_name):
-    """Вопросы для страницы тегов - специфичные для тега"""
     questions = []
     for i in range(1, 15):
         questions.append({
@@ -78,7 +73,6 @@ def get_tag_questions(tag_name):
 def test_view(request):
     return render(request, 'test.html')
 
-# СПИСОК НОВЫХ ВОПРОСОВ (главная страница)
 def index(request):
     questions = get_questions()
     page_obj = paginate(questions, request, 10)
@@ -87,7 +81,6 @@ def index(request):
         'questions': page_obj.object_list
     })
 
-# СПИСОК "ЛУЧШИХ" ВОПРОСОВ
 def hot_questions(request):
     questions = get_hot_questions() 
     page_obj = paginate(questions, request, 10)
@@ -95,8 +88,7 @@ def hot_questions(request):
         'page_obj': page_obj,
         'questions': page_obj.object_list 
     })
-
-# СПИСОК ВОПРОСОВ ПО ТЭГУ
+    
 def tag_questions(request, tag_name):
     questions = get_tag_questions(tag_name)
     page_obj = paginate(questions, request, 10)
@@ -106,16 +98,13 @@ def tag_questions(request, tag_name):
         'tag_name': tag_name
     })
 
-# СТРАНИЦА ОДНОГО ВОПРОСА СО СПИСКОМ ОТВЕТОВ
 def question_detail(request, question_id):
-    # Объединяем все вопросы для поиска
     questions = get_questions() + get_hot_questions() + get_tag_questions('трэш-метал')
     question = next((q for q in questions if q['id'] == question_id), None)
     
     if not question:
         raise Http404("Вопрос не найден")
     
-    # Заглушка для ответов
     answers = []
     for i in range(1, 6):
         answers.append({
@@ -132,18 +121,14 @@ def question_detail(request, question_id):
         'answers': answers
     })
 
-# ФОРМА ЛОГИНА
 def login_view(request):
     return render(request, 'login.html')
 
-# ФОРМА РЕГИСТРАЦИИ
 def signup_view(request):
     return render(request, 'signup.html')
 
-# ФОРМА СОЗДАНИЯ ВОПРОСА
 def ask_view(request):
     return render(request, 'ask.html')
 
-# РЕДАКТИРОВАНИЕ ПРОФИЛЯ
 def profile_edit(request):
     return render(request, 'profile_edit.html')

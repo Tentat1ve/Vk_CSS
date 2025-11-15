@@ -1177,8 +1177,6 @@ footer {
 }
 
 /* ===== СТИЛИ ДЛЯ СТРАНИЦЫ HOT.HTML ===== */
-
-/* Стили для ТОП вопроса */
 .top-question {
     background: linear-gradient(135deg, #9c03a4, #ff6b6b);
     color: white;
@@ -1286,7 +1284,6 @@ footer {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* Стили для горячих вопросов */
 .hot-item {
     position: relative;
     border-left: 4px solid #ff6b6b;
@@ -1350,7 +1347,6 @@ footer {
     background: #ff6b6b !important;
 }
 
-/* Стили для сайдбара hot страницы */
 .hot-widget {
     border-left: 3px solid #ff6b6b;
 }
@@ -1385,7 +1381,6 @@ footer {
     font-size: 1.1em;
 }
 
-/* Анимации */
 @keyframes topGlow {
     from {
         box-shadow: 0 8px 25px rgba(156, 3, 164, 0.3),
@@ -1448,7 +1443,6 @@ footer {
     }
 }
 
-/* Адаптивность для hot страницы */
 @media (max-width: 768px) {
     .top-question {
         padding: 20px;
