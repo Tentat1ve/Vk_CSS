@@ -1,0 +1,136 @@
+{% block title %}Вопросы по тегу {{ tag_name }} | SODOM{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="left-column">
+        <div class="questions-header">
+            <h1 class="page-title">Вопросы по тегу: <span class="tag-highlight">{{ tag_name }}</span></h1>
+            <a href="{% url 'app:ask' %}" class="btn ask-question-btn">Задать вопрос</a>
+        </div>
+        
+        <div class="questions-list">
+            {% for question in questions %}
+            <div class="question-item">
+                <div class="question-main">
+                    <div class="question-voting">
+                        <button class="vote-btn upvote">▲</button>
+                        <span class="vote-count">{{ question.votes }}</span>
+                        <button class="vote-btn downvote">▼</button>
+                    </div>
+                    <div class="question-content">
+                        <h2 class="question-title">
+                            <a href="{% url 'app:question' question.id %}">{{ question.title }}</a>
+                        </h2>
+                        <p class="question-excerpt">{{ question.content }}</p>
+                        
+                        <div class="question-meta">
+                            <div class="question-tags">
+                                {% for tag in question.tags %}
+                                <a href="{% url 'app:tag' tag %}" class="tag">{{ tag }}</a>
+                                {% endfor %}
+                            </div>
+                            <div class="question-info">
+                                <span class="answers-count">{{ question.answers_count }} ответов</span>
+                                <span class="question-date">{{ question.created_at }}</span>
+                                <div class="question-author">
+                                    <div class="author-avatar">{{ question.author.avatar }}</div>
+                                    <span class="author-name">{{ question.author.username }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-questions">
+                <h3>Пока нет вопросов по тегу "{{ tag_name }}"</h3>
+                <p>Будьте первым, кто задаст вопрос с этим тегом!</p>
+                <a href="{% url 'app:ask' %}" class="btn">Задать вопрос</a>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% include 'pagination.html' %}
+    </div>
+    
+    <div class="right-column">
+        <div class="sidebar-widget">
+            <h3 class="widget-title">Похожие теги</h3>
+            <div class="tags-container">
+                {% if tag_name == 'трэш-метал' %}
+                    <a href="{% url 'app:tag' 'металлика' %}" class="tag">Metallica</a>
+                    <a href="{% url 'app:tag' 'слейер' %}" class="tag">Slayer</a>
+                    <a href="{% url 'app:tag' 'мегедес' %}" class="tag">Megadeth</a>
+                    <a href="{% url 'app:tag' 'антракс' %}" class="tag">Anthrax</a>
+                {% elif tag_name == 'дэт-метал' %}
+                    <a href="{% url 'app:tag' 'мелодик-дэт' %}" class="tag">Мелодик-дэт</a>
+                    <a href="{% url 'app:tag' 'тех-дэт' %}" class="tag">Тех-дэт</a>
+                    <a href="{% url 'app:tag' 'дет-кор' %}" class="tag">Дет-кор</a>
+                {% else %}
+                    <a href="{% url 'app:tag' 'трэш-метал' %}" class="tag">Трэш-метал</a>
+                    <a href="{% url 'app:tag' 'дэт-метал' %}" class="tag">Дэт-метал</a>
+                    <a href="{% url 'app:tag' 'блэк-метал' %}" class="tag">Блэк-метал</a>
+                    <a href="{% url 'app:tag' 'хэви-метал' %}" class="tag">Хэви-метал</a>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="sidebar-widget">
+            <h3 class="widget-title">Статистика тега</h3>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-number">{{ questions|length }}</span>
+                    <span class="stat-label">вопросов</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">45</span>
+                    <span class="stat-label">ответов</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">89</span>
+                    <span class="stat-label">пользователей</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar-widget">
+            <h3 class="widget-title">Популярные вопросы</h3>
+            <ul class="related-questions">
+                <li>
+                    <div class="related-question">
+                        <a href="{% url 'app:question' 1 %}">С чего начать знакомство с {{ tag_name }}?</a>
+                        <div class="question-meta-small">15 ответов</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="related-question">
+                        <a href="{% url 'app:question' 2 %}">Лучшие альбомы в жанре {{ tag_name }}</a>
+                        <div class="question-meta-small">12 ответов</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="related-question">
+                        <a href="{% url 'app:question' 3 %}">История развития {{ tag_name }}</a>
+                        <div class="question-meta-small">8 ответов</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="sidebar-widget">
+            <h3 class="widget-title">О теге</h3>
+            <div class="quote">
+                {% if tag_name == 'трэш-метал' %}
+                    <p>Трэш-метал - агрессивный поджанр метала, характеризующийся быстрыми темпами и техничной игрой.</p>
+                {% elif tag_name == 'дэт-метал' %}
+                    <p>Дэт-метал - экстремальный поджанр с growled-вокалом и бласт-битами.</p>
+                {% elif tag_name == 'блэк-метал' %}
+                    <p>Блэк-метал - известен скрим-вокалом, lo-fi продакшеном и антихристианской тематикой.</p>
+                {% else %}
+                    <p>Метал - жанр рок-музыки, появившийся в конце 1960-х годов.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

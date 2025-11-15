@@ -1,10 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sodom</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
     <header>
@@ -53,6 +54,12 @@
                         <li>• Прогрессив-метал (Dream Theater, Opeth)</li>
                     </ul>
                 </div>
+
+                <nav class="main-navigation">
+                    <a href="{% url 'app:index' %}" class="nav-link">Новые</a>
+                    <a href="{% url 'app:hot' %}" class="nav-link">Лучшие</a>
+                    <a href="{% url 'app:tag' 'трэш-метал' %}" class="nav-link">Трэш-метал</a>
+                </nav>
                 
                 <div class="content-section">
                     <h2>Новые релизы</h2>

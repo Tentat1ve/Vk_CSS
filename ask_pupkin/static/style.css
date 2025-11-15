@@ -38,6 +38,7 @@ ul {
     cursor: pointer;
     font-weight: 500;
     text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 .btn:hover {
@@ -94,6 +95,7 @@ header {
     padding: 0 20px;
     border-radius: 0 15px 15px 0;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .search-button:hover {
@@ -125,6 +127,7 @@ header {
     font-size: 18px;
     cursor: pointer;
     border: none;
+    transition: background-color 0.3s ease;
 }
 
 .user-avatar:hover {
@@ -211,6 +214,7 @@ header {
     font-size: 14px;
     color: black;
     text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 .tag:hover {
@@ -297,10 +301,15 @@ header {
     gap: 10px;
     padding: 8px 0;
     border-bottom: 1px solid #f0f0f0;
+    transition: transform 0.2s ease;
 }
 
 .band-item:last-child {
     border-bottom: none;
+}
+
+.band-item:hover {
+    transform: translateX(5px);
 }
 
 .band-rank {
@@ -314,6 +323,7 @@ header {
     justify-content: center;
     font-size: 12px;
     font-weight: bold;
+    transition: all 0.3s ease;
 }
 
 .band-name {
@@ -366,6 +376,7 @@ footer {
 .footer-links a {
     color: white;
     text-decoration: none;
+    transition: all 0.3s ease;
 }
 
 .footer-links a:hover {
@@ -415,7 +426,7 @@ footer {
     background-color: #f9f9f9;
     border-radius: 10px;
     padding: 15px;
-    transition: transform 0.2s ease;
+    transition: transform 0.3s ease;
 }
 
 .album-item:hover {
@@ -480,7 +491,7 @@ footer {
     border-radius: 15px;
     padding: 25px;
     border: 1px solid #e0e0e0;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .question-item:hover {
@@ -509,7 +520,7 @@ footer {
     color: #666;
     padding: 5px;
     border-radius: 5px;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .vote-btn:hover {
@@ -543,6 +554,7 @@ footer {
     font-size: 20px;
     font-weight: 600;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .question-title a:hover {
@@ -620,6 +632,7 @@ footer {
 .breadcrumbs a {
     color: #9c03a4;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .breadcrumbs a:hover {
@@ -653,7 +666,7 @@ footer {
     cursor: pointer;
     padding: 8px;
     border-radius: 5px;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .favorite-btn:hover {
@@ -810,6 +823,7 @@ footer {
     font-size: 14px;
     color: #9c03a4;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .action-link:hover {
@@ -883,6 +897,7 @@ footer {
     font-weight: 500;
     display: block;
     margin-bottom: 5px;
+    transition: color 0.3s ease;
 }
 
 .related-question a:hover {
@@ -910,7 +925,7 @@ footer {
     border-radius: 8px;
     color: #333;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .page-nav:hover {
@@ -931,7 +946,7 @@ footer {
     border-radius: 8px;
     color: #333;
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .page-number:hover {
@@ -998,7 +1013,7 @@ footer {
     border: 2px solid #e0e0e0;
     border-radius: 8px;
     font-size: 16px;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.3s ease;
     width: 100%;
     box-sizing: border-box;
 }
@@ -1052,7 +1067,7 @@ footer {
     border: 2px solid #e0e0e0;
     border-radius: 4px;
     position: relative;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .checkbox:checked + .checkmark {
@@ -1076,6 +1091,7 @@ footer {
     font-size: 14px;
     color: #9c03a4;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .forgot-password:hover {
@@ -1127,7 +1143,7 @@ footer {
     background-color: white;
     color: #333;
     font-size: 14px;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .btn-social:hover {
@@ -1153,8 +1169,317 @@ footer {
     color: #9c03a4;
     text-decoration: none;
     font-weight: 500;
+    transition: color 0.3s ease;
 }
 
 .auth-switch a:hover {
     text-decoration: underline;
+}
+
+/* ===== СТИЛИ ДЛЯ СТРАНИЦЫ HOT.HTML ===== */
+
+/* Стили для ТОП вопроса */
+.top-question {
+    background: linear-gradient(135deg, #9c03a4, #ff6b6b);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+    border: 3px solid gold;
+    box-shadow: 0 8px 25px rgba(156, 3, 164, 0.3);
+    animation: topGlow 2s ease-in-out infinite alternate;
+    position: relative;
+    overflow: hidden;
+}
+
+.top-question::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: rotate(45deg);
+    animation: shine 3s ease-in-out infinite;
+}
+
+.top-question-badge {
+    background: linear-gradient(135deg, gold, #ffd700);
+    color: black;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1.2em;
+    display: inline-block;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    position: relative;
+    z-index: 2;
+    animation: badgePulse 2s ease-in-out infinite;
+}
+
+.top-question-title {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    font-weight: bold;
+    line-height: 1.3;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 2;
+}
+
+.top-question-excerpt {
+    font-size: 1.2em;
+    margin-bottom: 25px;
+    opacity: 0.95;
+    line-height: 1.5;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 2;
+}
+
+.top-question-stats {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+}
+
+.top-question-stats .stat {
+    background: rgba(255,255,255,0.25);
+    padding: 12px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.1em;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.top-question-tags {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+}
+
+.top-tag {
+    background: rgba(255,255,255,0.25);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.5);
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Стили для горячих вопросов */
+.hot-item {
+    position: relative;
+    border-left: 4px solid #ff6b6b;
+    background: linear-gradient(90deg, rgba(255,107,107,0.05) 0%, rgba(255,255,255,1) 100%);
+    transition: all 0.3s ease;
+}
+
+.hot-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+}
+
+.hot-indicator {
+    position: absolute;
+    left: -15px;
+    top: 20px;
+    background: #ff6b6b;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 50%;
+    font-size: 0.8em;
+    z-index: 2;
+    animation: firePulse 1.5s ease-in-out infinite;
+}
+
+.hot-upvote {
+    color: #ff6b6b !important;
+    font-size: 1.2em;
+}
+
+.hot-count {
+    color: #ff6b6b;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.hot-badge {
+    background: #ff6b6b;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.7em;
+    margin-left: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    animation: hotPulse 2s ease-in-out infinite;
+}
+
+.hot-tag {
+    background: #ff6b6b !important;
+    color: white !important;
+    font-weight: bold;
+}
+
+.hot-answers {
+    color: #9c03a4;
+    font-weight: bold;
+}
+
+.hot-avatar {
+    background: #ff6b6b !important;
+}
+
+/* Стили для сайдбара hot страницы */
+.hot-widget {
+    border-left: 3px solid #ff6b6b;
+}
+
+.hot-rank {
+    background: #ff6b6b !important;
+    animation: rankGlow 2s ease-in-out infinite;
+}
+
+.hot-stat {
+    color: #ff6b6b !important;
+    font-size: 1.3em !important;
+}
+
+.hot-sidebar-tag {
+    background: #fff0f0 !important;
+    color: #ff6b6b !important;
+    border: 1px solid #ff6b6b !important;
+}
+
+.hot-quote {
+    background: #fff0f0;
+    border-left: 4px solid #ff6b6b;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.page-description {
+    color: #666;
+    margin-bottom: 15px;
+    font-style: italic;
+    font-size: 1.1em;
+}
+
+/* Анимации */
+@keyframes topGlow {
+    from {
+        box-shadow: 0 8px 25px rgba(156, 3, 164, 0.3),
+                   0 0 30px rgba(255, 215, 0, 0.3);
+    }
+    to {
+        box-shadow: 0 8px 35px rgba(156, 3, 164, 0.5),
+                   0 0 40px rgba(255, 215, 0, 0.5);
+    }
+}
+
+@keyframes badgePulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+    }
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+}
+
+@keyframes firePulse {
+    0%, 100% {
+        transform: scale(1);
+        background: #ff6b6b;
+    }
+    50% {
+        transform: scale(1.1);
+        background: #ff8e8e;
+    }
+}
+
+@keyframes hotPulse {
+    0%, 100% {
+        background: #ff6b6b;
+    }
+    50% {
+        background: #ff8e8e;
+    }
+}
+
+@keyframes rankGlow {
+    0%, 100% {
+        background: #ff6b6b;
+        box-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
+    }
+    50% {
+        background: #ff8e8e;
+        box-shadow: 0 0 15px rgba(255, 107, 107, 0.8);
+    }
+}
+
+/* Адаптивность для hot страницы */
+@media (max-width: 768px) {
+    .top-question {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .top-question-title {
+        font-size: 1.4em;
+    }
+    
+    .top-question-excerpt {
+        font-size: 1em;
+    }
+    
+    .top-question-stats {
+        gap: 15px;
+    }
+    
+    .top-question-stats .stat {
+        padding: 8px 15px;
+        font-size: 1em;
+    }
+    
+    .hot-indicator {
+        left: -12px;
+        top: 15px;
+        font-size: 0.7em;
+    }
+    
+    .top-question-badge {
+        padding: 8px 20px;
+        font-size: 1em;
+    }
 }

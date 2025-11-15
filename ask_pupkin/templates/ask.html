@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Задать вопрос | SODOM{% endblock %}
+
+{% block content %}
+<div class="ask-container">
+    <h1 class="page-title">Задать вопрос</h1>
+    
+    <form class="ask-form">
+        <div class="form-group">
+            <label class="form-label">Заголовок</label>
+            <input type="text" class="form-input" placeholder="Кратко опишите ваш вопрос" required>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Подробности</label>
+            <textarea class="form-input" rows="10" placeholder="Опишите ваш вопрос подробно..." required></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Теги</label>
+            <input type="text" class="form-input" placeholder="трэш-метал, metallica, рекомендации">
+            <div class="form-hint">Укажите до 5 тегов через запятую</div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Опубликовать вопрос</button>
+    </form>
+</div>
+{% endblock %}
