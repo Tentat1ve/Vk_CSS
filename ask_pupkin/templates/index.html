@@ -23,19 +23,19 @@
                         <h2 class="question-title">
                             <a href="{% url 'app:question' question.id %}">{{ question.title }}</a>
                         </h2>
-                        <p class="question-excerpt">{{ question.content }}</p>
+                        <p class="question-excerpt">{{ question.content|truncatewords:30 }}</p>
                         
                         <div class="question-meta">
                             <div class="question-tags">
-                                {% for tag in question.tags %}
-                                <a href="{% url 'app:tag' tag %}" class="tag">{{ tag }}</a>
+                                {% for tag in question.tags.all %}
+                                <a href="{% url 'app:tag' tag.name %}" class="tag">{{ tag.name }}</a>
                                 {% endfor %}
                             </div>
                             <div class="question-info">
                                 <span class="answers-count">{{ question.answers_count }} ответов</span>
-                                <span class="question-date">{{ question.created_at }}</span>
+                                <span class="question-date">{{ question.created_at|date:"d.m.Y H:i" }}</span>
                                 <div class="question-author">
-                                    <div class="author-avatar">{{ question.author.avatar }}</div>
+                                    <div class="author-avatar">{{ question.get_author_initials }}</div>
                                     <span class="author-name">{{ question.author.username }}</span>
                                 </div>
                             </div>
@@ -43,10 +43,43 @@
                     </div>
                 </div>
             </div>
+            {% empty %}
+            <div class="no-questions">
+                <h3>Пока нет вопросов</h3>
+                <p>Будьте первым, кто задаст вопрос!</p>
+                <a href="{% url 'app:ask' %}" class="btn">Задать вопрос</a>
+            </div>
             {% endfor %}
         </div>
         
         {% include 'pagination.html' %}
+    </div>
+    
+    <div class="right-column">
+        <div class="sidebar-widget">
+            <h3 class="widget-title">Популярные теги</h3>
+            <div class="tags-container">
+                {% with popular_tags="трэш-метал дэт-метал блэк-метал металлика слейер" %}
+                    {% for tag_name in popular_tags.split %}
+                    <a href="{% url 'app:tag' tag_name %}" class="tag">{{ tag_name }}</a>
+                    {% endfor %}
+                {% endwith %}
+            </div>
+        </div>
+        
+        <div class="sidebar-widget">
+            <h3 class="widget-title">Статистика</h3>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-number">{{ questions|length }}</span>
+                    <span class="stat-label">вопросов на странице</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">{{ page_obj.paginator.count }}</span>
+                    <span class="stat-label">всего вопросов</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

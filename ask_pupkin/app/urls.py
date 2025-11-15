@@ -4,12 +4,12 @@ from . import views
 app_name = 'app'
 
 urlpatterns = [
-    path('', views.index, name='index'),    
-    path('hot/', views.hot_questions, name='hot'),
-    path('tag/<str:tag_name>/', views.tag_questions, name='tag'),
-    path('question/<int:question_id>/', views.question_detail, name='question'),
+    path('', views.home, name='home'),  # Главная страница
+    path('questions/', views.index, name='index'),  # Новые вопросы
+    path('hot/', views.hot, name='hot'),
+    path('tag/<str:tag_name>/', views.tag, name='tag'),
+    path('question/<int:question_id>/', views.question, name='question'),
+    path('ask/', views.ask, name='ask'),
     path('login/', views.login_view, name='login'),
-    path('signup/', views.signup_view, name='signup'),
-    path('ask/', views.ask_view, name='ask'),
-    path('test/', views.test_view, name='test'),
+    path('signup/', views.signup, name='signup'),
 ]

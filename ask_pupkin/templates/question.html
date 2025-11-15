@@ -1,298 +1,151 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>С чего начать знакомство с трэш-металом? | SODOM</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-<body>
-    <header>
-        <div class="container">
-            <div class="header-container">                
-                <div class="logo">
-                    <span>SODOM</span>
-                </div>
-                <form class="search-form">
-                    <input type="text" class="search-input" placeholder="Поиск по сайту...">
-                    <button type="submit" class="search-button">
-                    </button>
-                </form>                
-                
-                <div class="user-block">
-                    <div class="user-info">
-                        <button class="user-avatar">DD</button>
-                        <div class="user-name">DDD DDD</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+{% extends 'base.html' %}
 
-    <main class="container">
-        <div class="main-content">
-            <div class="left-column">
-                <!-- Хлебные крошки -->
-                <nav class="breadcrumbs">
-                    <a href="#">Главная</a> &gt;
-                    <a href="#">Вопросы</a> &gt;
-                    <span>Трэш-метал</span>
-                </nav>
+{% block title %}{{ question.title }} | SODOM{% endblock %}
 
-                <!-- Вопрос -->
-                <div class="question-detail">
-                    <div class="question-header">
-                        <h1 class="page-title">С чего начать знакомство с трэш-металом?</h1>
-                    </div>
-                    
-                    <div class="question-main">
-                        <div class="question-voting">
-                            <button class="vote-btn upvote">▲</button>
-                            <span class="vote-count">15</span>
-                            <button class="vote-btn downvote">▼</button>
-                            <div class="favorite-btn">★</div>
-                        </div>
-                        <div class="question-content">
-                            <div class="question-body">
-                                <p>Хочу погрузиться в трэш-метал, но не знаю с каких альбомов начать. Какие группы и альбомы считаются must-listen для новичка? Особенно интересуют классические работы и современные представители жанра.</p>
-                                <p>Слышал про "Большую четверку трэша", но хотелось бы более развернутых рекомендаций с пояснениями, почему именно эти альбомы важны.</p>
-                            </div>
-                            
-                            <div class="question-meta">
-                                <div class="question-tags">
-                                    <a href="#" class="tag">Трэш-метал</a>
-                                    <a href="#" class="tag">Новичкам</a>
-                                    <a href="#" class="tag">Рекомендации</a>
-                                    <a href="#" class="tag">Big Four</a>
-                                </div>
-                                <div class="question-author-info">
-                                    <div class="author-avatar-large">ИП</div>
-                                    <div class="author-details">
-                                        <div class="author-name">Иван Петров</div>
-                                        <div class="question-date">спросил 2 часа назад</div>
-                                        <div class="author-reputation">репутация: 1,247</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+{% block content %}
+<div class="main-content">
+    <div class="left-column">
+        <nav class="breadcrumbs">
+            <a href="{% url 'app:index' %}">Главная</a> &gt;
+            {% if question.tags.first %}
+            <a href="{% url 'app:tag' question.tags.first.name %}">{{ question.tags.first.name }}</a> &gt;
+            {% endif %}
+            <span>Вопрос</span>
+        </nav>
 
-                <div class="answers-header">
-                    <h2>5 ответов</h2>
-                    <div class="answers-sort">
-                        <span>Сортировка:</span>
-                        <select>
-                            <option>По голосам</option>
-                            <option>По дате</option>
-                            <option>По активности</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="answers-list">
-                    <div class="answer-item">
-                        <div class="answer-voting">
-                            <button class="vote-btn upvote">▲</button>
-                            <span class="vote-count">8</span>
-                            <button class="vote-btn downvote">▼</button>
-                            <div class="accepted-mark">✓</div>
-                        </div>
-                        <div class="answer-content">
-                            <div class="answer-body">
-                                <p>Начни с классики "Большой четверки трэша":</p>
-                                <ul>
-                                    <li><strong>Metallica</strong> - "Master of Puppets" (1986) - эталон трэш-метала</li>
-                                    <li><strong>Slayer</strong> - "Reign in Blood" (1986) - агрессивный и быстрый</li>
-                                    <li><strong>Megadeth</strong> - "Peace Sells... But Who's Buying?" (1986)</li>
-                                    <li><strong>Anthrax</strong> - "Among the Living" (1987) - с элементами хардкора</li>
-                                </ul>
-                                <p>Эти альбомы определяли звучание жанра в 80-х и до сих пор влияют на новых музыкантов.</p>
-                            </div>
-                            <div class="answer-meta">
-                                <div class="answer-author">
-                                    <div class="author-avatar">AC</div>
-                                    <div class="author-info">
-                                        <div class="author-name">Алексей Чернов</div>
-                                        <div class="answer-date">ответил 1 час назад</div>
-                                    </div>
-                                </div>
-                                <div class="answer-actions">
-                                    <a href="#" class="action-link">Комментировать</a>
-                                    <a href="#" class="action-link">Поделиться</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="answer-item">
-                        <div class="answer-voting">
-                            <button class="vote-btn upvote">▲</button>
-                            <span class="vote-count">5</span>
-                            <button class="vote-btn downvote">▼</button>
-                        </div>
-                        <div class="answer-content">
-                            <div class="answer-body">
-                                <p>Не забудь про немецкую трэш-сцену - "Teutonic Big Four":</p>
-                                <ul>
-                                    <li><strong>Kreator</strong> - "Pleasure to Kill" (1986)</li>
-                                    <li><strong>Sodom</strong> - "Persecution Mania" (1987)</li>
-                                    <li><strong>Destruction</strong> - "Release from Agony" (1987)</li>
-                                    <li><strong>Tankard</strong> - "Chemical Invasion" (1987)</li>
-                                </ul>
-                                <p>Немецкий трэш обычно более сырой и агрессивный compared to American.</p>
-                            </div>
-                            <div class="answer-meta">
-                                <div class="answer-author">
-                                    <div class="author-avatar">МС</div>
-                                    <div class="author-info">
-                                        <div class="author-name">Михаил Соколов</div>
-                                        <div class="answer-date">ответил 45 минут назад</div>
-                                    </div>
-                                </div>
-                                <div class="answer-actions">
-                                    <a href="#" class="action-link">Комментировать</a>
-                                    <a href="#" class="action-link">Поделиться</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="answer-item">
-                        <div class="answer-voting">
-                            <button class="vote-btn upvote">▲</button>
-                            <span class="vote-count">3</span>
-                            <button class="vote-btn downvote">▼</button>
-                        </div>
-                        <div class="answer-content">
-                            <div class="answer-body">
-                                <p>Из современных групп рекомендую:</p>
-                                <ul>
-                                    <li><strong>Havok</strong> - "Time Is Up" (2011)</li>
-                                    <li><strong>Power Trip</strong> - "Nightmare Logic" (2017)</li>
-                                    <li><strong>Vektor</strong> - "Terminal Redux" (2016) - трэш с прогрессивными элементами</li>
-                                    <li><strong>Municipal Waste</strong> - "The Art of Partying" (2007) - кроссовер трэш</li>
-                                </ul>
-                                <p>Эти группы доказывают, что трэш-метал все еще жив и развивается.</p>
-                            </div>
-                            <div class="answer-meta">
-                                <div class="answer-author">
-                                    <div class="author-avatar">ДК</div>
-                                    <div class="author-info">
-                                        <div class="author-name">Дмитрий Кузнецов</div>
-                                        <div class="answer-date">ответил 30 минут назад</div>
-                                    </div>
-                                </div>
-                                <div class="answer-actions">
-                                    <a href="#" class="action-link">Комментировать</a>
-                                    <a href="#" class="action-link">Поделиться</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pagination">
-                    <span class="page-info">Страница 1 из 2</span>
-                    <div class="page-numbers">
-                        <a href="#" class="page-number active">1</a>
-                        <a href="#" class="page-number">2</a>
-                        <a href="#" class="page-number">3</a>
-                        <a href="#" class="page-number">4</a>
-                        <a href="#" class="page-number">5</a>
-                        <span class="page-dots">...</span>
-                        <a href="#" class="page-number">10</a>
-                    </div>
-                    <a href="#" class="page-nav next">Следующая →</a>
-                </div>
-
-                <div class="answer-form-section">
-                    <h3>Ваш ответ</h3>
-                    <form class="answer-form">
-                        <div class="form-group">
-                            <textarea placeholder="Напишите ваш ответ здесь..." rows="8"></textarea>
-                        </div>
-                        <div class="form-actions">
-                            <button type="submit" class="btn">Отправить ответ</button>
-                            <button type="button" class="btn btn-secondary">Предпросмотр</button>
-                        </div>
-                    </form>
-                </div>
+        <div class="question-detail">
+            <div class="question-header">
+                <h1 class="page-title">{{ question.title }}</h1>
             </div>
             
-            <div class="right-column">
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">Похожие вопросы</h3>
-                    <ul class="related-questions">
-                        <li>
-                            <div class="related-question">
-                                <a href="#">Какие альбомы Slayer самые важные?</a>
-                                <div class="question-meta-small">12 ответов</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="related-question">
-                                <a href="#">В чем разница между трэшем и спид-металом?</a>
-                                <div class="question-meta-small">7 ответов</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="related-question">
-                                <a href="#">Современные трэш-группы, достойные внимания</a>
-                                <div class="question-meta-small">9 ответов</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="related-question">
-                                <a href="#">Почему Metallica сменила звучание после ...And Justice for All?</a>
-                                <div class="question-meta-small">23 ответа</div>
-                            </div>
-                        </li>
-                    </ul>
+            <div class="question-main">
+                <div class="question-voting">
+                    <button class="vote-btn upvote">▲</button>
+                    <span class="vote-count">{{ question.votes }}</span>
+                    <button class="vote-btn downvote">▼</button>
+                    <div class="favorite-btn">★</div>
                 </div>
-                
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">Статистика вопроса</h3>
-                    <div class="stats-container">
-                        <div class="stat-item">
-                            <span class="stat-number">156</span>
-                            <span class="stat-label">просмотров</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">5</span>
-                            <span class="stat-label">ответов</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">3</span>
-                            <span class="stat-label">избранных</span>
-                        </div>
+                <div class="question-content">
+                    <div class="question-body">
+                        <p>{{ question.content|linebreaks }}</p>
                     </div>
-                </div>
-                
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">Популярные теги</h3>
-                    <div class="tags-container">
-                        <a href="#" class="tag">Трэш-метал</a>
-                        <a href="#" class="tag">Metallica</a>
-                        <a href="#" class="tag">Slayer</a>
-                        <a href="#" class="tag">Новичкам</a>
-                        <a href="#" class="tag">Big Four</a>
-                        <a href="#" class="tag">Kreator</a>
-                    </div>
-                </div>
-                
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">Цитата дня</h3>
-                    <div class="quote">
-                        <p>"Трэш-метал - это не просто музыка, это образ жизни!"</p>
-                        <cite>- Керри Кинг, Slayer</cite>
+                    
+                    <div class="question-meta">
+                        <div class="question-tags">
+                            {% for tag in question.tags.all %}
+                            <a href="{% url 'app:tag' tag.name %}" class="tag">{{ tag.name }}</a>
+                            {% endfor %}
+                        </div>
+                        <div class="question-author-info">
+                            <div class="author-avatar-large">{{ question.get_author_initials }}</div>
+                            <div class="author-details">
+                                <div class="author-name">{{ question.author.username }}</div>
+                                <div class="question-date">спросил {{ question.created_at|date:"d.m.Y H:i" }}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
 
-    <footer>
-    </footer>
-</body>
-</html>
+        <div class="answers-header">
+            <h2>{{ answers|length }} ответов</h2>
+        </div>
+
+        <div class="answers-list">
+            {% for answer in answers %}
+            <div class="answer-item {% if answer.is_accepted %}accepted-answer{% endif %}">
+                <div class="answer-voting">
+                    <button class="vote-btn upvote">▲</button>
+                    <span class="vote-count">{{ answer.votes }}</span>
+                    <button class="vote-btn downvote">▼</button>
+                    {% if answer.is_accepted %}
+                    <div class="accepted-mark">✓</div>
+                    {% endif %}
+                </div>
+                <div class="answer-content">
+                    <div class="answer-body">
+                        <p>{{ answer.content|linebreaks }}</p>
+                    </div>
+                    <div class="answer-meta">
+                        <div class="answer-author">
+                            <div class="author-avatar">{{ answer.get_author_initials }}</div>
+                            <div class="author-info">
+                                <div class="author-name">{{ answer.author.username }}</div>
+                                <div class="answer-date">{{ answer.created_at|date:"d.m.Y H:i" }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="no-answers">
+                <h3>Пока нет ответов</h3>
+                <p>Будьте первым, кто ответит на этот вопрос!</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        {% if answers %}
+        <div class="pagination">
+            <span class="page-info">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+            <div class="page-numbers">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1" class="page-number">1</a>
+                    {% if page_obj.previous_page_number != 1 %}
+                        <span class="page-dots">...</span>
+                        <a href="?page={{ page_obj.previous_page_number }}" class="page-number">{{ page_obj.previous_page_number }}</a>
+                    {% endif %}
+                {% endif %}
+                
+                <span class="page-number active">{{ page_obj.number }}</span>
+                
+                {% if page_obj.has_next %}
+                    {% if page_obj.next_page_number != page_obj.paginator.num_pages %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="page-number">{{ page_obj.next_page_number }}</a>
+                        <span class="page-dots">...</span>
+                    {% endif %}
+                    <a href="?page={{ page_obj.paginator.num_pages }}" class="page-number">{{ page_obj.paginator.num_pages }}</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    
+    <div class="right-column">
+        <div class="sidebar-widget">
+            <h3 class="widget-title">Похожие вопросы</h3>
+            <ul class="related-questions">
+                {% for similar in similar_questions %}
+                <li>
+                    <div class="related-question">
+                        <a href="{% url 'app:question' similar.id %}">{{ similar.title|truncatewords:8 }}</a>
+                        <div class="question-meta-small">{{ similar.answers_count }} ответов</div>
+                    </div>
+                </li>
+                {% empty %}
+                <li>Нет похожих вопросов</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="sidebar-widget">
+            <h3 class="widget-title">Статистика вопроса</h3>
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-number">{{ question.votes }}</span>
+                    <span class="stat-label">голосов</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">{{ question.answers_count }}</span>
+                    <span class="stat-label">ответов</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">{{ question.created_at|timesince }}</span>
+                    <span class="stat-label">на сайте</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

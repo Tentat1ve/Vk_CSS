@@ -1,29 +1,171 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Задать вопрос | SODOM{% endblock %}
 
 {% block content %}
-<div class="ask-container">
-    <h1 class="page-title">Задать вопрос</h1>
+<div class="main-content">
+    <div class="left-column">
+        <div class="ask-container">
+            <h1 class="page-title">Задать вопрос</h1>
+            
+            <form class="ask-form" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="form-label">Заголовок</label>
+                    <input type="text" class="form-input" name="title" placeholder="Кратко опишите ваш вопрос" required>
+                    <div class="form-hint">Будьте конкретны и ясны в формулировке</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Подробности</label>
+                    <textarea class="form-input" name="content" rows="10" placeholder="Опишите ваш вопрос подробно..." required></textarea>
+                    <div class="form-hint">Опишите проблему детально, приведите примеры</div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Теги</label>
+                    <input type="text" class="form-input" name="tags" placeholder="трэш-метал, metallica, рекомендации">
+                    <div class="form-hint">Укажите до 5 тегов через запятую</div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Опубликовать вопрос</button>
+                    <button type="button" class="btn btn-secondary" onclick="previewQuestion()">Предпросмотр</button>
+                    <a href="{% url 'app:index' %}" class="btn btn-secondary">Отмена</a>
+                </div>
+            </form>
+
+            <!-- Блок предпросмотра -->
+            <div id="preview" class="preview-container" style="display: none;">
+                <h3>Предпросмотр вопроса</h3>
+                <div class="question-preview">
+                    <h4 id="preview-title"></h4>
+                    <p id="preview-content"></p>
+                    <div class="preview-tags" id="preview-tags"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     
-    <form class="ask-form">
-        <div class="form-group">
-            <label class="form-label">Заголовок</label>
-            <input type="text" class="form-input" placeholder="Кратко опишите ваш вопрос" required>
+    <div class="right-column">
+        <div class="sidebar-widget">
+            <h3 class="widget-title">📝 Советы по формулировке</h3>
+            <div class="tips-list">
+                <div class="tip-item">
+                    <strong>Будьте конкретны</strong>
+                    <p>Четко сформулируйте проблему или вопрос</p>
+                </div>
+                <div class="tip-item">
+                    <strong>Приведите примеры</strong>
+                    <p>Упомяните конкретные группы, альбомы или треки</p>
+                </div>
+                <div class="tip-item">
+                    <strong>Используйте теги</strong>
+                    <p>Правильные теги помогут быстрее найти ответ</p>
+                </div>
+            </div>
         </div>
         
-        <div class="form-group">
-            <label class="form-label">Подробности</label>
-            <textarea class="form-input" rows="10" placeholder="Опишите ваш вопрос подробно..." required></textarea>
+        <div class="sidebar-widget">
+            <h3 class="widget-title">🏷️ Популярные теги</h3>
+            <div class="tags-container">
+                <a href="{% url 'app:tag' 'трэш-метал' %}" class="tag">Трэш-метал</a>
+                <a href="{% url 'app:tag' 'дэт-метал' %}" class="tag">Дэт-метал</a>
+                <a href="{% url 'app:tag' 'блэк-метал' %}" class="tag">Блэк-метал</a>
+                <a href="{% url 'app:tag' 'металлика' %}" class="tag">Metallica</a>
+                <a href="{% url 'app:tag' 'слейер' %}" class="tag">Slayer</a>
+                <a href="{% url 'app:tag' 'новинки' %}" class="tag">Новинки</a>
+            </div>
         </div>
         
-        <div class="form-group">
-            <label class="form-label">Теги</label>
-            <input type="text" class="form-input" placeholder="трэш-метал, metallica, рекомендации">
-            <div class="form-hint">Укажите до 5 тегов через запятую</div>
+        <div class="sidebar-widget">
+            <h3 class="widget-title">❓ Часто задаваемые</h3>
+            <ul class="related-questions">
+                <li>
+                    <div class="related-question">
+                        <a href="{% url 'app:question' 1 %}">С чего начать знакомство с трэш-металом?</a>
+                        <div class="question-meta-small">15 ответов</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="related-question">
+                        <a href="{% url 'app:question' 2 %}">Лучшие альбомы в жанре трэш-метал</a>
+                        <div class="question-meta-small">12 ответов</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="related-question">
+                        <a href="{% url 'app:question' 3 %}">История развития трэш-метала</a>
+                        <div class="question-meta-small">8 ответов</div>
+                    </div>
+                </li>
+            </ul>
         </div>
         
-        <button type="submit" class="btn btn-primary">Опубликовать вопрос</button>
-    </form>
+        <div class="sidebar-widget">
+            <h3 class="widget-title">💡 Правила сообщества</h3>
+            <div class="quote">
+                <p>• Будьте вежливы и уважайте других</p>
+                <p>• Задавайте четкие и конкретные вопросы</p>
+                <p>• Используйте соответствующие теги</p>
+                <p>• Проверяйте, не задавали ли подобный вопрос ранее</p>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    function previewQuestion() {
+        const title = document.querySelector('input[name="title"]').value;
+        const content = document.querySelector('textarea[name="content"]').value;
+        const tags = document.querySelector('input[name="tags"]').value;
+        
+        if (title || content) {
+            document.getElementById('preview-title').textContent = title || '(без заголовка)';
+            document.getElementById('preview-content').textContent = content || '(без содержания)';
+            
+            const tagsContainer = document.getElementById('preview-tags');
+            tagsContainer.innerHTML = '';
+            
+            if (tags) {
+                const tagArray = tags.split(',').map(tag => tag.trim()).filter(tag => tag);
+                tagArray.forEach(tag => {
+                    const tagElement = document.createElement('span');
+                    tagElement.className = 'tag';
+                    tagElement.textContent = tag;
+                    tagsContainer.appendChild(tagElement);
+                });
+            }
+            
+            document.getElementById('preview').style.display = 'block';
+        } else {
+            alert('Заполните заголовок или содержание для предпросмотра');
+        }
+    }
+
+    // Валидация формы
+    document.querySelector('.ask-form').addEventListener('submit', function(e) {
+        const title = document.querySelector('input[name="title"]').value.trim();
+        const content = document.querySelector('textarea[name="content"]').value.trim();
+        
+        if (!title) {
+            e.preventDefault();
+            alert('Пожалуйста, заполните заголовок вопроса');
+            return;
+        }
+        
+        if (!content) {
+            e.preventDefault();
+            alert('Пожалуйста, опишите ваш вопрос подробно');
+            return;
+        }
+        
+        if (title.length < 10) {
+            e.preventDefault();
+            alert('Заголовок должен содержать не менее 10 символов');
+            return;
+        }
+    });
+</script>
 {% endblock %}

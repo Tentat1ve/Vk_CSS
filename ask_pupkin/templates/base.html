@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sodom</title>
+    <title>{% block title %}SODOM{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
@@ -12,8 +12,19 @@
         <div class="container">
             <div class="header-container">                
                 <div class="logo">
-                    <span>SODOM</span>
+                    <a href="{% url 'app:home' %}" style="text-decoration: none; color: inherit; display: block;">
+                        <span>SODOM</span>
+                    </a>
                 </div>
+                
+                <nav class="main-navigation">
+                    <a href="{% url 'app:index' %}" class="nav-link">Новые</a>
+                    <a href="{% url 'app:hot' %}" class="nav-link">Лучшие</a>
+                    <a href="{% url 'app:tag' 'трэш-метал' %}" class="nav-link">Трэш-метал</a>
+                    <a href="{% url 'app:tag' 'дэт-метал' %}" class="nav-link">Дэт-метал</a>
+                    <a href="{% url 'app:ask' %}" class="nav-link">Задать вопрос</a>
+                </nav>
+
                 <form class="search-form">
                     <input type="text" class="search-input" placeholder="Поиск по сайту...">
                     <button type="submit" class="search-button">
@@ -22,8 +33,8 @@
                 
                 <div class="user-block">
                     <div class="user-info">
-                        <button class="user-avatar">DD</button>
-                        <div class="user-name">DDD DDD</div>
+                        <button class="user-avatar">Г</button>
+                        <div class="user-name">Гость</div>
                     </div>
                 </div>
             </div>
@@ -31,120 +42,44 @@
     </header>
 
     <main class="container">
-        <div class="main-content">
-            <div class="left-column">
-                <h1 class="page-title">Welcome!</h1>
-                
-                <div class="content-section">
-                    <h2>О сайте</h2>
-                    <p>.......</p>
-                    <div class="content-image">Афиша концерта</div>
-                    <a href="#" class="btn">Купить билет</a>
-                </div>
-                
-                <div class="content-section">
-                    <h2>Жанры металла</h2>
-                    <p>Металл - это разнообразие звучаний и стилей:</p>
-                    <ul>
-                        <li>• Хэви-метал (Iron Maiden, Judas Priest)</li>
-                        <li>• Трэш-метал (Metallica, Slayer, Megadeth)</li>
-                        <li>• Дэт-метал (Death, Cannibal Corpse)</li>
-                        <li>• Блэк-метал (Mayhem, Burzum)</li>
-                        <li>• Дуум-метал (Candlemass, My Dying Bride)</li>
-                        <li>• Прогрессив-метал (Dream Theater, Opeth)</li>
-                    </ul>
-                </div>
+        {% block content %}
+        {% endblock %}
+    </main>
 
-                <nav class="main-navigation">
-                    <a href="{% url 'app:index' %}" class="nav-link">Новые</a>
-                    <a href="{% url 'app:hot' %}" class="nav-link">Лучшие</a>
-                    <a href="{% url 'app:tag' 'трэш-метал' %}" class="nav-link">Трэш-метал</a>
-                </nav>
-                
-                <div class="content-section">
-                    <h2>Новые релизы</h2>
-                    <div class="album-grid">
-                        <div class="album-item">
-                            <div class="album-cover">Gojira<br>Fortitude</div>
-                            <div class="album-info">
-                                <h3>Gojira - Fortitude</h3>
-                                <p>Выпущен: 2021</p>
-                                <p>Жанр: Прогрессив-дэт-метал</p>
-                            </div>
-                        </div>
-                        <div class="album-item">
-                            <div class="album-cover">Mastodon<br>Hushed and Grim</div>
-                            <div class="album-info">
-                                <h3>Mastodon - Hushed and Grim</h3>
-                                <p>Выпущен: 2021</p>
-                                <p>Жанр: Прогрессив-метал</p>
-                            </div>
-                        </div>
-                    </div>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>SODOM</h3>
+                    <p>Сообщество любителей метала</p>
                 </div>
-            </div>
-            <div class="right-column">
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">Жанры</h3>
-                    <ul class="categories-list">
-                        <li><a href="#">Хэви-метал</a></li>
-                        <li><a href="#">Трэш-метал</a></li>
-                        <li><a href="#">Дэт-метал</a></li>
-                        <li><a href="#">Блэк-метал</a></li>
-                        <li><a href="#">Дуум-метал</a></li>
+                <div class="footer-column">
+                    <h3>Навигация</h3>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'app:index' %}">Новые вопросы</a></li>
+                        <li><a href="{% url 'app:hot' %}">Лучшие вопросы</a></li>
+                        <li><a href="{% url 'app:tag' 'трэш-метал' %}">Трэш-метал</a></li>
+                        <li><a href="{% url 'app:tag' 'дэт-метал' %}">Дэт-метал</a></li>
+                        <li><a href="{% url 'app:ask' %}">Задать вопрос</a></li>
                     </ul>
                 </div>
-                
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">Популярные группы</h3>
-                    <div class="tags-container">
-                        <a href="#" class="tag">Death</a>
-                        <a href="#" class="tag">Iron Maiden</a>
-                        <a href="#" class="tag">Creator</a>
-                        <a href="#" class="tag">Slayer</a>
-                        <a href="#" class="tag">Megadeth</a>
-                    </div>
-                </div>
-                
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">Ближайшие концерты</h3>
-                    <ul class="popular-posts">
-                        <li>
-                            <div class="post-thumb"></div>
-                            <div class="post-info">
-                                <h4><a href="#">Slipknot</a></h4>
-                                <div class="post-date">15 мая 2025</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="post-thumb"></div>
-                            <div class="post-info">
-                                <h4><a href="#">Metallica</a></h4>
-                                <div class="post-date">3 апреля 2025</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="post-thumb"></div>
-                            <div class="post-info">
-                                <h4><a href="#">Ghost</a></h4>
-                                <div class="post-date">21 марта 2025</div>
-                            </div>
-                        </li>
+                <div class="footer-column">
+                    <h3>Помощь</h3>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'app:login' %}">Войти</a></li>
+                        <li><a href="{% url 'app:signup' %}">Регистрация</a></li>
                     </ul>
                 </div>
-                
-                <div class="sidebar-widget">
-                    <h3 class="widget-title">Цитата дня</h3>
-                    <div class="quote">
-                        <p>"Если это слишком громко - значит, ты слишком стар!"</p>
-                        <cite>- Металлика</cite>
+                <div class="footer-column">
+                    <h3>Популярные теги</h3>
+                    <div class="footer-links">
+                        <a href="{% url 'app:tag' 'трэш-метал' %}" class="footer-tag">Трэш-метал</a>
+                        <a href="{% url 'app:tag' 'дэт-метал' %}" class="footer-tag">Дэт-метал</a>
+                        <a href="{% url 'app:tag' 'металлика' %}" class="footer-tag">Metallica</a>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-
-    <footer>
     </footer>
 </body>
 </html>
