@@ -267,13 +267,43 @@
 
             <!-- Блок пользователя -->
             <div class="user-block">
-                {% if user.is_authenticated %}
-                    <span style="color: white; margin-right: 10px;">{{ user.username }}</span>
-                    <a href="{% url 'qa:logout' %}" class="btn">Выйти</a>
-                {% else %}
-                    <a href="{% url 'qa:login' %}" class="btn">Войти</a>
-                    <a href="{% url 'qa:signup' %}" class="btn">Регистрация</a>
-                {% endif %}
+                <div class="user-block">
+    {% if user.is_authenticated %}
+        <div class="user-info">
+            {% if user.profile.avatar %}
+                <img src="{{ user.profile.avatar.url }}" 
+                     alt="{{ user.username }}" 
+                     class="user-avatar"
+                     style="width: 40px; height: 40px; border-radius: 50%;">
+            {% else %}
+                <div class="user-avatar">{{ user.profile.get_avatar_display }}</div>
+            {% endif %}
+            
+            <div class="user-details">
+                <div class="user-name">
+                    <a href="{% url 'qa:profile_edit' %}" style="color: white;">
+                        {{ user.profile.nickname|default:user.username }}
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <a href="{% url 'qa:logout' %}?next={{ request.path }}" 
+           class="btn btn-small"
+           onclick="return confirm('Вы уверены, что хотите выйти?');">
+            Выйти
+        </a>
+    {% else %}
+        <div class="auth-buttons">
+            <a href="{% url 'qa:login' %}?next={{ request.path }}" class="btn btn-small">
+                Войти
+            </a>
+            <a href="{% url 'qa:signup' %}" class="btn btn-small">
+                Регистрация
+            </a>
+        </div>
+    {% endif %}
+</div>
             </div>
         </div>
     </header>

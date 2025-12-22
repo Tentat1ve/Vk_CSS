@@ -1,151 +1,29 @@
-{% extends 'base.html' %}
-
-{% block title %}{{ question.title }} | SODOM{% endblock %}
-
-{% block content %}
-<div class="main-content">
-    <div class="left-column">
-        <nav class="breadcrumbs">
-            <a href="{% url 'qa:index' %}">Главная</a> &gt;
-            {% if question.tags.first %}
-            <a href="{% url 'qa:tag' question.tags.first.name %}">{{ question.tags.first.name }}</a> &gt;
+<!-- В конец левой колонки, после списка ответов -->
+{% if user.is_authenticated %}
+<div class="answer-form-section" id="answer-form">
+    <h3>Ваш ответ</h3>
+    <form method="post" action="{% url 'qa:add_answer' question.id %}">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="{{ answer_form.content.id_for_label }}" class="form-label">
+                {{ answer_form.content.label }}
+            </label>
+            {{ answer_form.content }}
+            {% if answer_form.content.errors %}
+            <div class="form-error">{{ answer_form.content.errors.0 }}</div>
             {% endif %}
-            <span>Вопрос</span>
-        </nav>
-
-        <div class="question-detail">
-            <div class="question-header">
-                <h1 class="page-title">{{ question.title }}</h1>
-            </div>
-            
-            <div class="question-main">
-                <div class="question-voting">
-                    <button class="vote-btn upvote">▲</button>
-                    <span class="vote-count">{{ question.votes }}</span>
-                    <button class="vote-btn downvote">▼</button>
-                    <div class="favorite-btn">★</div>
-                </div>
-                <div class="question-content">
-                    <div class="question-body">
-                        <p>{{ question.content|linebreaks }}</p>
-                    </div>
-                    
-                    <div class="question-meta">
-                        <div class="question-tags">
-                            {% for tag in question.tags.all %}
-                            <a href="{% url 'qa:tag' tag.name %}" class="tag">{{ tag.name }}</a>
-                            {% endfor %}
-                        </div>
-                        <div class="question-author-info">
-                            <div class="author-avatar-large">{{ question.get_author_initials }}</div>
-                            <div class="author-details">
-                                <div class="author-name">{{ question.author.username }}</div>
-                                <div class="question-date">спросил {{ question.created_at|date:"d.m.Y H:i" }}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="answers-header">
-            <h2>{{ answers|length }} ответов</h2>
-        </div>
-
-        <div class="answers-list">
-            {% for answer in answers %}
-            <div class="answer-item {% if answer.is_accepted %}accepted-answer{% endif %}">
-                <div class="answer-voting">
-                    <button class="vote-btn upvote">▲</button>
-                    <span class="vote-count">{{ answer.votes }}</span>
-                    <button class="vote-btn downvote">▼</button>
-                    {% if answer.is_accepted %}
-                    <div class="accepted-mark">✓</div>
-                    {% endif %}
-                </div>
-                <div class="answer-content">
-                    <div class="answer-body">
-                        <p>{{ answer.content|linebreaks }}</p>
-                    </div>
-                    <div class="answer-meta">
-                        <div class="answer-author">
-                            <div class="author-avatar">{{ answer.get_author_initials }}</div>
-                            <div class="author-info">
-                                <div class="author-name">{{ answer.author.username }}</div>
-                                <div class="answer-date">{{ answer.created_at|date:"d.m.Y H:i" }}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <div class="no-answers">
-                <h3>Пока нет ответов</h3>
-                <p>Будьте первым, кто ответит на этот вопрос!</p>
-            </div>
-            {% endfor %}
         </div>
         
-        {% if answers %}
-        <div class="pagination">
-            <span class="page-info">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
-            <div class="page-numbers">
-                {% if page_obj.has_previous %}
-                    <a href="?page=1" class="page-number">1</a>
-                    {% if page_obj.previous_page_number != 1 %}
-                        <span class="page-dots">...</span>
-                        <a href="?page={{ page_obj.previous_page_number }}" class="page-number">{{ page_obj.previous_page_number }}</a>
-                    {% endif %}
-                {% endif %}
-                
-                <span class="page-number active">{{ page_obj.number }}</span>
-                
-                {% if page_obj.has_next %}
-                    {% if page_obj.next_page_number != page_obj.paginator.num_pages %}
-                        <a href="?page={{ page_obj.next_page_number }}" class="page-number">{{ page_obj.next_page_number }}</a>
-                        <span class="page-dots">...</span>
-                    {% endif %}
-                    <a href="?page={{ page_obj.paginator.num_pages }}" class="page-number">{{ page_obj.paginator.num_pages }}</a>
-                {% endif %}
-            </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Отправить ответ</button>
         </div>
-        {% endif %}
-    </div>
-    
-    <div class="right-column">
-        <div class="sidebar-widget">
-            <h3 class="widget-title">Похожие вопросы</h3>
-            <ul class="related-questions">
-                {% for similar in similar_questions %}
-                <li>
-                    <div class="related-question">
-                        <a href="{% url 'qa:question' similar.id %}">{{ similar.title|truncatewords:8 }}</a>
-                        <div class="question-meta-small">{{ similar.answers_count }} ответов</div>
-                    </div>
-                </li>
-                {% empty %}
-                <li>Нет похожих вопросов</li>
-                {% endfor %}
-            </ul>
-        </div>
-        
-        <div class="sidebar-widget">
-            <h3 class="widget-title">Статистика вопроса</h3>
-            <div class="stats-container">
-                <div class="stat-item">
-                    <span class="stat-number">{{ question.votes }}</span>
-                    <span class="stat-label">голосов</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">{{ question.answers_count }}</span>
-                    <span class="stat-label">ответов</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">{{ question.created_at|timesince }}</span>
-                    <span class="stat-label">на сайте</span>
-                </div>
-            </div>
-        </div>
-    </div>
+    </form>
 </div>
-{% endblock %}
+{% else %}
+<div class="answer-form-section">
+    <h3>Хотите ответить?</h3>
+    <p>Пожалуйста, <a href="{% url 'qa:login' %}?next={{ request.path }}">войдите</a> или 
+    <a href="{% url 'qa:signup' %}">зарегистрируйтесь</a>, чтобы оставить ответ.</p>
+</div>
+{% endif %}
