@@ -32,7 +32,7 @@
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">Опубликовать вопрос</button>
                     <button type="button" class="btn btn-secondary" onclick="previewQuestion()">Предпросмотр</button>
-                    <a href="{% url 'app:index' %}" class="btn btn-secondary">Отмена</a>
+                    <a href="{% url 'qa:index' %}" class="btn btn-secondary">Отмена</a>
                 </div>
             </form>
 
@@ -70,12 +70,12 @@
         <div class="sidebar-widget">
             <h3 class="widget-title">🏷️ Популярные теги</h3>
             <div class="tags-container">
-                <a href="{% url 'app:tag' 'трэш-метал' %}" class="tag">Трэш-метал</a>
-                <a href="{% url 'app:tag' 'дэт-метал' %}" class="tag">Дэт-метал</a>
-                <a href="{% url 'app:tag' 'блэк-метал' %}" class="tag">Блэк-метал</a>
-                <a href="{% url 'app:tag' 'металлика' %}" class="tag">Metallica</a>
-                <a href="{% url 'app:tag' 'слейер' %}" class="tag">Slayer</a>
-                <a href="{% url 'app:tag' 'новинки' %}" class="tag">Новинки</a>
+                <a href="{% url 'qa:tag' 'трэш-метал' %}" class="tag">Трэш-метал</a>
+                <a href="{% url 'qa:tag' 'дэт-метал' %}" class="tag">Дэт-метал</a>
+                <a href="{% url 'qa:tag' 'блэк-метал' %}" class="tag">Блэк-метал</a>
+                <a href="{% url 'qa:tag' 'металлика' %}" class="tag">Metallica</a>
+                <a href="{% url 'qa:tag' 'слейер' %}" class="tag">Slayer</a>
+                <a href="{% url 'qa:tag' 'новинки' %}" class="tag">Новинки</a>
             </div>
         </div>
         
@@ -84,19 +84,19 @@
             <ul class="related-questions">
                 <li>
                     <div class="related-question">
-                        <a href="{% url 'app:question' 1 %}">С чего начать знакомство с трэш-металом?</a>
+                        <a href="{% url 'qa:question' 1 %}">С чего начать знакомство с трэш-металом?</a>
                         <div class="question-meta-small">15 ответов</div>
                     </div>
                 </li>
                 <li>
                     <div class="related-question">
-                        <a href="{% url 'app:question' 2 %}">Лучшие альбомы в жанре трэш-метал</a>
+                        <a href="{% url 'qa:question' 2 %}">Лучшие альбомы в жанре трэш-метал</a>
                         <div class="question-meta-small">12 ответов</div>
                     </div>
                 </li>
                 <li>
                     <div class="related-question">
-                        <a href="{% url 'app:question' 3 %}">История развития трэш-метала</a>
+                        <a href="{% url 'qa:question' 3 %}">История развития трэш-метала</a>
                         <div class="question-meta-small">8 ответов</div>
                     </div>
                 </li>
@@ -134,7 +134,7 @@
                     const tagElement = document.createElement('span');
                     tagElement.className = 'tag';
                     tagElement.textContent = tag;
-                    tagsContainer.appendChild(tagElement);
+                    tagsContainer.qaendChild(tagElement);
                 });
             }
             

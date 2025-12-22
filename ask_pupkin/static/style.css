@@ -1350,3 +1350,291 @@ footer {
         font-size: 0.7em;
     }
 }
+
+/* ===== style.css - ДОБАВИТЬ К СУЩЕСТВУЮЩИМ СТИЛЯМ ===== */
+
+/* === Улучшенные цвета и градиенты === */
+body {
+    background: linear-gradient(135deg, #f5e6fa 0%, #e6f0ff 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1400px;
+}
+
+/* === Улучшенный хедер === */
+header {
+    background: linear-gradient(90deg, #9c03a4 0%, #6a00ff 100%);
+    box-shadow: 0 4px 20px rgba(156, 3, 164, 0.2);
+}
+
+.logo {
+    background: linear-gradient(135deg, #12dec6 0%, #00b4d8 100%);
+    color: white;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(18, 222, 198, 0.3);
+    padding: 10px 25px;
+}
+
+.nav-link {
+    position: relative;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 80%;
+}
+
+/* === Улучшенные карточки === */
+.question-item, 
+.answer-item,
+.sidebar-widget {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.question-item:hover,
+.answer-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(156, 3, 164, 0.15);
+}
+
+/* === Улучшенные кнопки === */
+.btn {
+    background: linear-gradient(135deg, #9c03a4 0%, #6a00ff 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 25px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(156, 3, 164, 0.3);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(156, 3, 164, 0.4);
+}
+
+/* === Улучшенные теги === */
+.tag {
+    background: linear-gradient(135deg, #e6f2ff 0%, #f0e6ff 100%);
+    border: 1px solid rgba(156, 3, 164, 0.1);
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tag:hover {
+    background: linear-gradient(135deg, #9c03a4 0%, #6a00ff 100%);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(156, 3, 164, 0.2);
+}
+
+/* === Улучшенная система голосования === */
+.vote-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+    font-size: 18px;
+}
+
+.upvote:hover {
+    background: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+.downvote:hover {
+    background: #dc3545;
+    color: white;
+    border-color: #dc3545;
+}
+
+.vote-count {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+    padding: 10px 0;
+}
+
+/* === Анимации и эффекты === */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.question-item {
+    animation: fadeIn 0.6s ease-out;
+}
+
+.question-item:nth-child(even) {
+    animation-delay: 0.1s;
+}
+
+.question-item:nth-child(odd) {
+    animation-delay: 0.2s;
+}
+
+/* === Улучшенные формы === */
+.form-input {
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: #fafafa;
+}
+
+.form-input:focus {
+    border-color: #9c03a4;
+    box-shadow: 0 0 0 3px rgba(156, 3, 164, 0.1);
+    background: white;
+}
+
+/* === Улучшенный футер === */
+footer {
+    background: linear-gradient(90deg, #5f0a5f 0%, #3a005c 100%);
+    margin-top: 80px;
+    position: relative;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #9c03a4, #6a00ff, #12dec6);
+}
+
+.footer-tag {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* === Акцентные элементы === */
+.accepted-answer {
+    position: relative;
+    border: 2px solid #28a745;
+    background: linear-gradient(135deg, #f0fff4 0%, #e6fff2 100%);
+}
+
+.accepted-answer::before {
+    content: '✓ Лучший ответ';
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* === Загрузочный спиннер (для AJAX) === */
+.loading-spinner {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #9c03a4;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* === Эффекты при наведении на аватарки === */
+.user-avatar,
+.author-avatar,
+.author-avatar-large {
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-avatar:hover,
+.author-avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(156, 3, 164, 0.3);
+}
+
+/* === Улучшенная пагинация === */
+.pagination .current {
+    background: linear-gradient(135deg, #9c03a4 0%, #6a00ff 100%);
+    color: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(156, 3, 164, 0.3);
+}
+
+.page-number,
+.page-nav {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.page-number:hover,
+.page-nav:hover {
+    border-color: #9c03a4;
+    transform: translateY(-2px);
+}
+
+/* === Адаптивные улучшения === */
+@media (max-width: 768px) {
+    .question-main,
+    .answer-item {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .question-voting,
+    .answer-voting {
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .logo {
+        font-size: 24px;
+        padding: 8px 15px;
+    }
+}
