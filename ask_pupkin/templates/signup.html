@@ -7,78 +7,42 @@
 <div class="auth-container">
     <h1 class="auth-title">Регистрация</h1>
     
-    <form class="auth-form">
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="id_username" class="form-label">Имя пользователя</label>
+            <input type="text" name="username" id="id_username" class="form-input" 
+                   placeholder="Придумайте имя пользователя" required>
+            {% if form.username.errors %}
+                <div class="form-error">{{ form.username.errors.0 }}</div>
+            {% endif %}
+        </div>
+
         <div class="form-row">
             <div class="form-group">
-                <label for="signup-firstname" class="form-label">Имя</label>
-                <input type="text" id="signup-firstname" class="form-input" placeholder="Ваше имя" maxlength="30" required>
-                <div class="form-hint">Только буквы</div>
+                <label for="id_password1" class="form-label">Пароль</label>
+                <input type="password" name="password1" id="id_password1" 
+                       class="form-input" placeholder="Введите пароль" required>
+                {% if form.password1.errors %}
+                    <div class="form-error">{{ form.password1.errors.0 }}</div>
+                {% endif %}
             </div>
-
+            
             <div class="form-group">
-                <label for="signup-lastname" class="form-label">Фамилия</label>
-                <input type="text" id="signup-lastname" class="form-input" placeholder="Ваша фамилия" maxlength="30" required>
-                <div class="form-hint">Только буквы</div>
+                <label for="id_password2" class="form-label">Подтверждение пароля</label>
+                <input type="password" name="password2" id="id_password2" 
+                       class="form-input" placeholder="Повторите пароль" required>
+                {% if form.password2.errors %}
+                    <div class="form-error">{{ form.password2.errors.0 }}</div>
+                {% endif %}
             </div>
-        </div>
-
-        <div class="form-group">
-            <label for="signup-username" class="form-label">Имя пользователя</label>
-            <input type="text" id="signup-username" class="form-input" placeholder="username" maxlength="20" required>
-            <div class="form-hint">От 3 до 20 символов (буквы, цифры, _)</div>
-            <div class="form-error" style="display: none;">
-                Имя пользователя уже занято
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="signup-email" class="form-label">Email</label>
-            <input type="email" id="signup-email" class="form-input" placeholder="your@email.com" maxlength="100" required>
-            <div class="form-hint">Введите действующий email</div>
-            <div class="form-error" style="display: none;">
-                Email уже используется
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="signup-password" class="form-label">Пароль</label>
-            <input type="password" id="signup-password" class="form-input" placeholder="Создайте пароль" maxlength="50" required>
-            <div class="form-hint">Минимум 8 символов, включая цифры и буквы</div>
-            <div class="form-error" style="display: none;">
-                Пароль слишком слабый
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="signup-confirm-password" class="form-label">Подтверждение пароля</label>
-            <input type="password" id="signup-confirm-password" class="form-input" placeholder="Повторите пароль" maxlength="50" required>
-            <div class="form-error" style="display: none;">
-                Пароли не совпадают
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="checkbox-label">
-                <input type="checkbox" class="checkbox" required>
-                <span class="checkmark"></span>
-                <a>Я принимаю условия использования и политику конфиденциальности</a>
-            </label>
-            <div class="form-error" style="display: none;">
-                Необходимо принять условия
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="checkbox-label">
-                <input type="checkbox" class="checkbox">
-                <span class="checkmark"></span>
-                Подписаться на рассылку новостей и уведомлений
-            </label>
         </div>
 
         <button type="submit" class="btn btn-primary btn-full">Зарегистрироваться</button>
+
         <div class="auth-switch">
-            Уже есть аккаунт? <a href="{% url 'app:login' %}">Войти</a>
+            Уже есть аккаунт? <a href="{% url 'qa:login' %}">Войти</a>
         </div>
     </form>
 </div>

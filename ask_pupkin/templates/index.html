@@ -3,83 +3,57 @@
 {% block title %}Новые вопросы | SODOM{% endblock %}
 
 {% block content %}
-<div class="main-content">
-    <div class="left-column">
-        <div class="questions-header">
-            <h1 class="page-title">Новые вопросы</h1>
-            <a href="{% url 'app:ask' %}" class="btn ask-question-btn">Задать вопрос</a>
+<h1 style="color: #2c3e50; margin-bottom: 30px;">Новые вопросы</h1>
+
+<div class="questions-list">
+    {% for question in questions %}
+    <div class="question-item">
+        <div class="question-title">
+            <a href="{% url 'qa:question' question.id %}">{{ question.title }}</a>
         </div>
-        
-        <div class="questions-list">
-            {% for question in questions %}
-            <div class="question-item">
-                <div class="question-main">
-                    <div class="question-voting">
-                        <button class="vote-btn upvote">▲</button>
-                        <span class="vote-count">{{ question.votes }}</span>
-                        <button class="vote-btn downvote">▼</button>
-                    </div>
-                    <div class="question-content">
-                        <h2 class="question-title">
-                            <a href="{% url 'app:question' question.id %}">{{ question.title }}</a>
-                        </h2>
-                        <p class="question-excerpt">{{ question.content|truncatewords:30 }}</p>
-                        
-                        <div class="question-meta">
-                            <div class="question-tags">
-                                {% for tag in question.tags.all %}
-                                <a href="{% url 'app:tag' tag.name %}" class="tag">{{ tag.name }}</a>
-                                {% endfor %}
-                            </div>
-                            <div class="question-info">
-                                <span class="answers-count">{{ question.answers_count }} ответов</span>
-                                <span class="question-date">{{ question.created_at|date:"d.m.Y H:i" }}</span>
-                                <div class="question-author">
-                                    <div class="author-avatar">{{ question.get_author_initials }}</div>
-                                    <span class="author-name">{{ question.author.username }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% empty %}
-            <div class="no-questions">
-                <h3>Пока нет вопросов</h3>
-                <p>Будьте первым, кто задаст вопрос!</p>
-                <a href="{% url 'app:ask' %}" class="btn">Задать вопрос</a>
-            </div>
+        <div class="question-content" style="color: #34495e; margin-bottom: 15px;">
+            {{ question.content|truncatewords:30 }}
+        </div>
+        <div class="tags">
+            {% for tag in question.tags.all %}
+            <a href="{% url 'qa:tag' tag.name %}" class="tag">{{ tag.name }}</a>
             {% endfor %}
         </div>
-        
-        {% include 'pagination.html' %}
-    </div>
-    
-    <div class="right-column">
-        <div class="sidebar-widget">
-            <h3 class="widget-title">Популярные теги</h3>
-            <div class="tags-container">
-                {% with popular_tags="трэш-метал дэт-метал блэк-метал металлика слейер" %}
-                    {% for tag_name in popular_tags.split %}
-                    <a href="{% url 'app:tag' tag_name %}" class="tag">{{ tag_name }}</a>
-                    {% endfor %}
-                {% endwith %}
+        <div class="question-meta">
+            <div class="question-info">
+                <span class="votes">👍 {{ question.votes }} голосов</span>
+                <span class="answers">💬 {{ question.answers_count|default:0 }} ответов</span>
             </div>
-        </div>
-        
-        <div class="sidebar-widget">
-            <h3 class="widget-title">Статистика</h3>
-            <div class="stats-container">
-                <div class="stat-item">
-                    <span class="stat-number">{{ questions|length }}</span>
-                    <span class="stat-label">вопросов на странице</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">{{ page_obj.paginator.count }}</span>
-                    <span class="stat-label">всего вопросов</span>
-                </div>
+            <div class="question-author">
+                <span class="date">📅 {{ question.created_at|date:"d.m.Y H:i" }}</span>
+                <span class="author">👤 {{ question.author.username }}</span>
             </div>
         </div>
     </div>
+    {% empty %}
+    <div style="text-align: center; padding: 50px; color: #7f8c8d;">
+        <h3>Пока нет вопросов</h3>
+        <p>Будьте первым, кто задаст вопрос!</p>
+        <a href="{% url 'qa:ask' %}" class="btn">Задать вопрос</a>
+    </div>
+    {% endfor %}
 </div>
+
+{% if page_obj.has_other_pages %}
+<div class="pagination" style="display: flex; justify-content: center; margin-top: 30px;">
+    {% if page_obj.has_previous %}
+        <a href="?page=1" class="btn" style="margin: 0 5px;">« Первая</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="btn" style="margin: 0 5px;">‹ Назад</a>
+    {% endif %}
+    
+    <span style="margin: 0 10px; align-self: center;">
+        Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+    </span>
+    
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="btn" style="margin: 0 5px;">Вперед ›</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="btn" style="margin: 0 5px;">Последняя »</a>
+    {% endif %}
+</div>
+{% endif %}
 {% endblock %}

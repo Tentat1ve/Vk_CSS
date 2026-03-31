@@ -6,9 +6,9 @@
 <div class="main-content">
     <div class="left-column">
         <nav class="breadcrumbs">
-            <a href="{% url 'app:index' %}">Главная</a> &gt;
+            <a href="{% url 'qa:index' %}">Главная</a> &gt;
             {% if question.tags.first %}
-            <a href="{% url 'app:tag' question.tags.first.name %}">{{ question.tags.first.name }}</a> &gt;
+            <a href="{% url 'qa:tag' question.tags.first.name %}">{{ question.tags.first.name }}</a> &gt;
             {% endif %}
             <span>Вопрос</span>
         </nav>
@@ -33,7 +33,7 @@
                     <div class="question-meta">
                         <div class="question-tags">
                             {% for tag in question.tags.all %}
-                            <a href="{% url 'app:tag' tag.name %}" class="tag">{{ tag.name }}</a>
+                            <a href="{% url 'qa:tag' tag.name %}" class="tag">{{ tag.name }}</a>
                             {% endfor %}
                         </div>
                         <div class="question-author-info">
@@ -119,7 +119,7 @@
                 {% for similar in similar_questions %}
                 <li>
                     <div class="related-question">
-                        <a href="{% url 'app:question' similar.id %}">{{ similar.title|truncatewords:8 }}</a>
+                        <a href="{% url 'qa:question' similar.id %}">{{ similar.title|truncatewords:8 }}</a>
                         <div class="question-meta-small">{{ similar.answers_count }} ответов</div>
                     </div>
                 </li>

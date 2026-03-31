@@ -1,3 +1,4 @@
+<!-- templates/login.html -->
 {% extends 'base.html' %}
 {% load static %}
 
@@ -7,26 +8,30 @@
 <div class="auth-container">
     <h1 class="auth-title">Вход в аккаунт</h1>
     
-    <form class="auth-form">
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        
+        {% if form.errors %}
+        <div class="form-error">
+            Неверное имя пользователя или пароль. Проверьте правильность введенных данных.
+        </div>
+        {% endif %}
+
         <div class="form-group">
-            <label for="login-email" class="form-label">Email</label>
-            <input type="email" id="login-email" class="form-input" placeholder="your@email.com" maxlength="100" required>
-            <div class="form-hint">Введите ваш email адрес</div>
+            <label for="id_username" class="form-label">Имя пользователя</label>
+            <input type="text" name="username" id="id_username" class="form-input" 
+                   placeholder="Введите имя пользователя" required>
         </div>
 
         <div class="form-group">
-            <label for="login-password" class="form-label">Пароль</label>
-            <input type="password" id="login-password" class="form-input" placeholder="Введите пароль" maxlength="50" required>
-            <div class="form-hint">Минимум 6 символов</div>
-        </div>
-
-        <div class="form-error" style="display: none;">
-            Неверный email или пароль. Проверьте правильность введенных данных.
+            <label for="id_password" class="form-label">Пароль</label>
+            <input type="password" name="password" id="id_password" 
+                   class="form-input" placeholder="Введите пароль" required>
         </div>
 
         <div class="form-options">
             <label class="checkbox-label">
-                <input type="checkbox" class="checkbox">
+                <input type="checkbox" class="checkbox" name="remember">
                 <span class="checkmark"></span>
                 Запомнить меня
             </label>
@@ -36,7 +41,7 @@
         <button type="submit" class="btn btn-primary btn-full">Войти</button>
 
         <div class="auth-switch">
-            Нет аккаунта? <a href="{% url 'app:signup' %}">Зарегистрироваться</a>
+            Нет аккаунта? <a href="{% url 'qa:signup' %}">Зарегистрироваться</a>
         </div>
     </form>
 </div>
